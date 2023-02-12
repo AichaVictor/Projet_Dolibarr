@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 class Product {
   String name;
   double price;
@@ -16,7 +16,7 @@ class Product {
 }
 
 void main() {
-  Product product = Product("Ordinateur portable", 999, 10);
+  Product product = Product("Ordinateur", 999, 10);
   print(product.getInfo());
   product.updateStock(-3);
   print(product.getInfo());
