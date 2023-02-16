@@ -1,6 +1,6 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:dio/dio.dart';
 
 class FormulaireProduit extends StatefulWidget {
   const FormulaireProduit({Key? key}) : super(key: key);
@@ -48,13 +48,22 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
               child: TextFormField(
                   cursorColor: Color.fromARGB(255, 223, 29, 126),
                   controller: RefController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       labelText: 'Référence',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 223, 29, 126)),
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 97, 37, 78)),
                       border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(20.0)))),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 223, 29, 126)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 223, 29, 126)),
+                      ),
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                      )),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Veuiller saisir la reference';
@@ -63,18 +72,28 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
                   }),
             ),
             Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                     top: 16.0, left: 18.0, right: 18.0, bottom: 8.0),
                 child: TextFormField(
-                  cursorColor: Color.fromARGB(255, 223, 29, 126),
+                  cursorColor: const Color.fromARGB(255, 223, 29, 126),
                   controller: libelleController,
+                  // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                       labelText: 'Libellé',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 223, 29, 126)),
-                      border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(20.0)))),
+                      hintStyle: const TextStyle(
+                          color: Color.fromARGB(255, 97, 37, 78)),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 223, 29, 126)),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 223, 29, 126)),
+                      ),
+                      labelStyle: const TextStyle(
+                        color: Colors.black,
+                      )),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Veuiller saisir le libelle';
@@ -86,28 +105,47 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
                 padding: const EdgeInsets.only(
                     top: 16.0, left: 18.0, right: 18.0, bottom: 8.0),
                 child: TextFormField(
-                    cursorColor: Color.fromARGB(255, 223, 29, 126),
+                    cursorColor: const Color.fromARGB(255, 223, 29, 126),
                     controller: limiteStockController,
+                    // ignore: prefer_const_constructors
                     decoration: InputDecoration(
                         labelText: 'Limite du stock (alerte)',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 223, 29, 126)),
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)))))),
+                        hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 97, 37, 78)),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 223, 29, 126)),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 223, 29, 126)),
+                        ),
+                        labelStyle: const TextStyle(
+                          color: Colors.black,
+                        )))),
             Padding(
               padding: const EdgeInsets.only(
                   top: 16.0, left: 18.0, right: 18.0, bottom: 8.0),
               child: TextFormField(
-                  cursorColor: Color.fromARGB(255, 223, 29, 126),
+                  cursorColor: const Color.fromARGB(255, 223, 29, 126),
                   controller: PrixController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       labelText: 'Prix',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 223, 29, 126)),
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 97, 37, 78)),
                       border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(20.0)))),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 223, 29, 126)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 223, 29, 126)),
+                      ),
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                      )),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Veuiller indiquer le prix';
@@ -116,66 +154,49 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
                   }),
             ),
             Padding(
-
-decoration: InputDecoration(
-                      labelText: 'Description',
-                      
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 223, 29, 126)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide:
-                              BorderSide(color: Colors.red, width: 2.0))),
-
-
-
-
-
-
                 padding: const EdgeInsets.only(
                     top: 16.0, left: 18.0, right: 18.0, bottom: 8.0),
                 child: TextFormField(
-                  cursorColor: Color.fromARGB(255, 223, 29, 126),
+                  cursorColor: const Color.fromARGB(255, 223, 29, 126),
                   controller: DescriptionController,
-                  decoration: InputDecoration(labelText: 'Nom',
-                  style: TextStyle(
-                  color: Colors.red),
-                 border: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.red),
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.red),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.red),
-  ),
-  labelStyle: TextStyle(
-    color: Colors.red,
-  )),
+                  decoration: const InputDecoration(
+                      labelText: 'Description',
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 97, 37, 78)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 223, 29, 126)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 223, 29, 126)),
+                      ),
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                      )),
                   keyboardType: TextInputType.multiline,
                   minLines: 3,
                   maxLines: 5,
-                ))
-             
-
-            SizedBox(height: 8.0),
+                )),
+            const SizedBox(height: 8.0),
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 223, 29, 126),
+                  backgroundColor: const Color.fromARGB(255, 223, 29, 126),
                 ),
                 onPressed: () {},
-                child: Text('Creer'),
+                child: const Text('Creer'),
               ),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 97, 37, 78),
+                  backgroundColor: const Color.fromARGB(255, 97, 37, 78),
                 ),
                 onPressed: () {},
-                child: Text('Annuler'),
+                child: const Text('Annuler'),
               ),
             ),
           ])), //form
