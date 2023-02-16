@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'GridDashboard.dart';
 
+import 'createProduit.dart';
+
 class HomeProduct extends StatefulWidget {
   @override
   HomeState createState() => new HomeState();
@@ -14,11 +16,11 @@ class HomeState extends State<HomeProduct> {
       backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
             height: 110,
           ),
           Padding(
-            padding: EdgeInsets.only(left: 16, right: 16),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -28,18 +30,18 @@ class HomeState extends State<HomeProduct> {
                     Text(
                       "Produits",
                       style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               color: Color.fromARGB(255, 97, 37, 78),
                               fontSize: 30,
                               fontWeight: FontWeight.bold)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
                     Text(
                       "Espace Produits",
                       style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               color: Color.fromARGB(234, 123, 168, 228),
                               fontSize: 20,
                               fontWeight: FontWeight.w600)),
@@ -58,7 +60,7 @@ class HomeState extends State<HomeProduct> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           GridDashboard()
