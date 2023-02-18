@@ -1,3 +1,4 @@
+import 'package:dolibarr/login2_page.dart';
 import 'package:dolibarr/main.dart';
 import 'package:flutter/material.dart';
 class login_page extends StatelessWidget  {
@@ -44,14 +45,14 @@ class login_page extends StatelessWidget  {
                         
                         
                         ),
-                        //creating the signup button
+                        
                         SizedBox(height: 20),
                         MaterialButton(
                           minWidth: double.infinity,
                           height: 60,
                           onPressed: () {
                             Navigator.push(context,
-                             MaterialPageRoute(builder: (context) => login_page()));
+                             MaterialPageRoute(builder: (context) => login2()));
                           },
                           color: Color(0xff0095FF),
                           //shape
