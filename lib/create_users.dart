@@ -1,11 +1,4 @@
-import 'package:dolibarr/createProduit.dart';
 import 'package:flutter/material.dart';
-import 'profil_utilisateur.dart';
-import 'package:dio/dio.dart';
-
-Dio dio = Dio();
-const apiUrl = 'https://dolibarr.with6.dolicloud.com/api/index.php/explorer/#!/login/listLogin';
-String apiToken = 'API';
 
 class CreateUsers extends StatefulWidget {
   const CreateUsers({Key? key}) : super(key: key);
@@ -182,16 +175,6 @@ class _CreateUsersState extends State<CreateUsers> {
               child: ElevatedButton(
                 onPressed: () async {
                   if(formKey.currentState!.validate()){
-
-                    try {
-                      Response response = await dio.post(apiUrl,
-                          data: {
-                        "login": identifiantController,
-                            "password": motDePasseController,
-                            "entity": 1
-                          });
-                      String apiToken = response.data['token'];
-                      print("hello");
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>UserProfilePage(
                         nom: nomController.text,
                         prenom: prenomController.text,
