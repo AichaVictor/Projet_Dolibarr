@@ -1,25 +1,36 @@
+import 'package:dolibarr/HomeProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'createProduit.dart';
-import 'stockproduit.dart';
 
-class GridDashboard extends StatelessWidget {
+class DashboardMaster extends StatelessWidget {
   late Items item1 = Items(
-      title: "Nouveau produit",
-      subtitle: "Cliquez pour ajouter",
+      title: "Utilisateurs",
+      subtitle: "Cliquez pour accèder",
       event: "",
-      img: "assets/newproduct.png");
+      img: "assets/users.png");
 
   Items item2 = Items(
-    title: "Stocks",
-    subtitle: "Cliquez pour consulter",
+    title: "Tiers",
+    subtitle: "Cliquez pour accèder",
     event: "",
-    img: "assets/stock.png",
+    img: "assets/tiers.png",
+  );
+  Items item3 = Items(
+    title: "Produits",
+    subtitle: "Cliquez pour accèder",
+    event: "",
+    img: "assets/produits.png",
+  );
+  Items item4 = Items(
+    title: "Commerce",
+    subtitle: "Cliquez pour accèder",
+    event: "",
+    img: "assets/commerce.png",
   );
 
   @override
   Widget build(BuildContext context) {
-    List<Items> myList = [item1, item2];
+    List<Items> myList = [item1, item2, item3, item4];
     var color = 0xff453658;
     return Flexible(
       child: GridView.count(
@@ -29,22 +40,20 @@ class GridDashboard extends StatelessWidget {
           crossAxisSpacing: 18,
           mainAxisSpacing: 18,
           children: myList.map((data) {
-            return GestureDetector(
+            return InkWell(
               onTap: () {
-                if (data.img == "assets/newproduct.png") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FormulaireProduit()));
-                } else if (data.img == "assets/stock.png") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) { return LDetails(productName:,
-                      )}));
-
-
-
+                if (data.img == "assets/users.png") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Page1()));
+                } else if (data.img == "assets/tiers.png") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Page2()));
+                } else if (data.img == "assets/produits.png") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeProduct()));
+                } else if (data.img == "assets/commerce.png") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Page3()));
                 }
               },
               child: Container(

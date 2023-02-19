@@ -1,6 +1,7 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'produitcree.dart';
 
 class FormulaireProduit extends StatefulWidget {
   const FormulaireProduit({Key? key}) : super(key: key);
@@ -13,23 +14,19 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
   final formKey = GlobalKey<FormState>();
   final RefController = TextEditingController();
   final libelleController = TextEditingController();
-  final EtatVenteController = TextEditingController();
-  final EtatAchatController = TextEditingController();
+  final EtatController = TextEditingController();
   final DescriptionController = TextEditingController();
   final PrixController = TextEditingController();
   final limiteStockController = TextEditingController();
-  final natureProduitController = TextEditingController();
   @override
   void dispose() {
     // TODO: implement dispose
     RefController.dispose();
     libelleController.dispose();
-    EtatVenteController.dispose();
-    EtatAchatController.dispose();
+    EtatController.dispose();
     DescriptionController.dispose();
     PrixController.dispose();
     limiteStockController.dispose();
-    natureProduitController.dispose();
     super.dispose();
   }
 
@@ -37,7 +34,7 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Nouveau produit"),
-        backgroundColor: Color.fromARGB(255, 97, 37, 78),
+        backgroundColor: Color(0xff453658),
       ),
       body: Form(
           key: formKey,
@@ -46,20 +43,17 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
               padding: const EdgeInsets.only(
                   top: 45.0, left: 18.0, right: 18.0, bottom: 8.0),
               child: TextFormField(
-                  cursorColor: Color.fromARGB(255, 223, 29, 126),
+                  cursorColor: Colors.blue,
                   controller: RefController,
                   decoration: const InputDecoration(
                       labelText: 'Référence',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 97, 37, 78)),
+                      hintStyle: TextStyle(color: Color(0xff453658)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 223, 29, 126)),
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 223, 29, 126)),
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                       labelStyle: TextStyle(
                         color: Colors.black,
@@ -75,21 +69,18 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
                 padding: const EdgeInsets.only(
                     top: 16.0, left: 18.0, right: 18.0, bottom: 8.0),
                 child: TextFormField(
-                  cursorColor: const Color.fromARGB(255, 223, 29, 126),
+                  cursorColor: Colors.blue,
                   controller: libelleController,
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                       labelText: 'Libellé',
-                      hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 97, 37, 78)),
+                      hintStyle: const TextStyle(color: Color(0xff453658)),
                       border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 223, 29, 126)),
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                       focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 223, 29, 126)),
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                       labelStyle: const TextStyle(
                         color: Colors.black,
@@ -105,43 +96,70 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
                 padding: const EdgeInsets.only(
                     top: 16.0, left: 18.0, right: 18.0, bottom: 8.0),
                 child: TextFormField(
-                    cursorColor: const Color.fromARGB(255, 223, 29, 126),
+                    cursorColor: Colors.blue,
+                    controller: EtatController,
+                    // ignore: prefer_const_constructors
+                    decoration: InputDecoration(
+                        labelText: 'Etat',
+                        hintText: 'Vente ou Achat',
+                        hintStyle: const TextStyle(color: Color(0xff453658)),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(color: Colors.blue),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
+                        ),
+                        labelStyle: const TextStyle(
+                          color: Colors.black,
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Veuiller indiquer l_etat du produit';
+                      }
+                      return null;
+                    })),
+            Padding(
+                padding: const EdgeInsets.only(
+                    top: 16.0, left: 18.0, right: 18.0, bottom: 8.0),
+                child: TextFormField(
+                    cursorColor: Colors.blue,
                     controller: limiteStockController,
                     // ignore: prefer_const_constructors
                     decoration: InputDecoration(
                         labelText: 'Limite du stock (alerte)',
-                        hintStyle: const TextStyle(
-                            color: Color.fromARGB(255, 97, 37, 78)),
+                        hintStyle: const TextStyle(color: Color(0xff453658)),
                         border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 223, 29, 126)),
+                          borderSide: BorderSide(color: Colors.blue),
                         ),
                         focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 223, 29, 126)),
+                          borderSide: BorderSide(color: Colors.blue),
                         ),
                         labelStyle: const TextStyle(
                           color: Colors.black,
-                        )))),
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Veuiller indiquer la limite du stock';
+                      }
+                      return null;
+                    })),
             Padding(
               padding: const EdgeInsets.only(
                   top: 16.0, left: 18.0, right: 18.0, bottom: 8.0),
               child: TextFormField(
-                  cursorColor: const Color.fromARGB(255, 223, 29, 126),
+                  cursorColor: Colors.blue,
                   controller: PrixController,
                   decoration: const InputDecoration(
                       labelText: 'Prix',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 97, 37, 78)),
+                      hintStyle: TextStyle(color: Color(0xff453658)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 223, 29, 126)),
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 223, 29, 126)),
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                       labelStyle: TextStyle(
                         color: Colors.black,
@@ -157,20 +175,17 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
                 padding: const EdgeInsets.only(
                     top: 16.0, left: 18.0, right: 18.0, bottom: 8.0),
                 child: TextFormField(
-                  cursorColor: const Color.fromARGB(255, 223, 29, 126),
+                  cursorColor: Colors.blue,
                   controller: DescriptionController,
                   decoration: const InputDecoration(
                       labelText: 'Description',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 97, 37, 78)),
+                      hintStyle: TextStyle(color: Color(0xff453658)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 223, 29, 126)),
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 223, 29, 126)),
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                       labelStyle: TextStyle(
                         color: Colors.black,
@@ -183,9 +198,18 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 223, 29, 126),
+                  backgroundColor: Colors.blue,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Details(
+                        productName: RefController.text,
+                      );
+                    }));
+                  }
+                },
                 child: const Text('Creer'),
               ),
             ),
@@ -193,7 +217,7 @@ class _FormulaireProduitState extends State<FormulaireProduit> {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 97, 37, 78),
+                  backgroundColor: Color(0xff453658),
                 ),
                 onPressed: () {},
                 child: const Text('Annuler'),
