@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, prefer_const_constructors
 
-import 'package:dolibarr/stockproduit.dart';
 import 'package:flutter/material.dart';
 import 'produitcree.dart';
 

@@ -40,7 +40,7 @@ class GridDashboard extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) { return LDetails(productName: RefController.text,
+                          builder: (context) { return LDetails(productName:,
                       )}));
 
 

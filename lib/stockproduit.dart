@@ -12,7 +12,7 @@ class LDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Liste des produits"),
+        title: Text("Stocks"),
         backgroundColor: Color(0xff453658),
         leading: IconButton(
             onPressed: () {

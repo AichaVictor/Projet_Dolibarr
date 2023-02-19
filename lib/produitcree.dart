@@ -18,7 +18,7 @@ class Details extends StatelessWidget {
             icon: const Icon(Icons.arrow_back)),
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(21.0),
         child: ListView(
           children: [
             ListTile(

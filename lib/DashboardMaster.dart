@@ -44,16 +44,16 @@ class DashboardMaster extends StatelessWidget {
               onTap: () {
                 if (data.img == "assets/users.png") {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeProduct()));
+                      MaterialPageRoute(builder: (context) => Page1()));
                 } else if (data.img == "assets/tiers.png") {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeProduct()));
+                      MaterialPageRoute(builder: (context) => Page2()));
                 } else if (data.img == "assets/produits.png") {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => HomeProduct()));
                 } else if (data.img == "assets/commerce.png") {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeProduct()));
+                      MaterialPageRoute(builder: (context) => Page3()));
                 }
               },
               child: Container(
