@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:flutter/src/material/dropdown.dart';
-
+import '../InterfaceCommande.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+const api ='https://dolibarr.with6.dolicloud.com/api/index.php/orders?sortfield=t.rowid&sortorder=ASC&limit=100';
 
 class CreateCommand extends StatefulWidget {
 
   @override
   _CreateCommandState createState() => _CreateCommandState();
 }
-const List<String> list = <String>['Coumba', 'Aisha', 'Sougou', 'Mareme'];
+var dropdownvalue;
 class _CreateCommandState extends State<CreateCommand> {
+  String dropdownValue = 'Cheque';
+  String dropdownVal2 = 'KANE';
+
   TextEditingController dateinput = TextEditingController();
+  TextEditingController textarea = TextEditingController();
   final RefController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
-  String dropdownValue = "Selectionner un Tiers";
 
   @override
   void initState() {
@@ -26,171 +33,273 @@ class _CreateCommandState extends State<CreateCommand> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       home :Scaffold(
 
         appBar: AppBar(
 
-            title: Text('Créer Commande'),
+            title: Text('Créer Commande', style: TextStyle(color: Colors.purple,fontWeight: FontWeight.bold, fontSize: 20)),
             centerTitle: true,
-            backgroundColor: Colors.purpleAccent,),
+            backgroundColor: Colors.white70),
         body: Container(
           padding:
-              const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-              child: Builder(
-                builder: (context) => Form(
-                    key:_formKey,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                            Padding(
-                               padding: const EdgeInsets.only(
-                                 top: 45.0, left: 18.0, right: 25.0, bottom: 8.0),
-                                 child : TextFormField(
-                                    controller: RefController,
-                                    style: TextStyle(color: Color.fromARGB(255, 66, 125, 145)),
-                                    decoration: const InputDecoration(
+          const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+          child: Builder(
+            builder: (context) => Form(
 
-                                      labelText: 'Réf Client',
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                      ),
-                                      filled: false,
-                                      prefixIcon: Icon(
-                                        Icons.person,
-                                        color: Colors.deepPurple,
-                                      ),
-                                    ),
-                                ),
+                key:_formKey,
+                child: SingleChildScrollView(
+                    child : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 70.0, left: 2.0, right: 2.0, bottom: 25.0),
+                          child : TextFormField(
+                            controller: RefController,
+                            style: TextStyle(color: Color.fromARGB(255, 66, 125, 145)),
+                            decoration: const InputDecoration(
+
+                              labelText: 'Réf Client',
+                              hintText: 'renseignez la réference',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                                borderSide: BorderSide(color: Colors.deepPurple, width: 5.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.deepPurple, width: 1),
+                              ),
+                              filled: false,
+                              prefixIcon: Icon(
+                                Icons.person,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        DecoratedBox(
+                            decoration: BoxDecoration(
+
+                                color:Colors.purple.shade50, //background color of dropdown button
+                                border: Border.all(color: Colors.deepPurple, width:1), //border of dropdown button
+                                borderRadius: BorderRadius.circular(10), //border raiuds of dropdown button
+                                boxShadow: <BoxShadow>[ //apply shadow on Dropdown button
+                                  BoxShadow(
+                                      color: Color.fromRGBO(0, 0, 0, 0.57), //shadow for button
+                                      blurRadius: 5) //blur radius of shadow
+                                ]
                             ),
 
-                            Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 5.0, left : 18.0, right: 25.0, bottom: 8.0),
-                                child: TextFormField(
-                                  controller: dateinput, //editing controller of this TextField
-                                  decoration: const InputDecoration(
+                            child:Padding(
+                              padding: EdgeInsets.only(left:30, right:30),
+                              child:
+                              // Step 2.
+                              DropdownButton<String>(
+                                // Step 3.
+                                value: dropdownVal2,
+                                hint : Text('Tiers'),
+                                // Step 4.
+                                items: <String>['KANE', 'VICTOR', 'SOUGOU', 'SARR',]
+                                    .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
 
-                                    prefixIcon: Icon(
-                                      Icons.calendar_today,
-                                      color: Colors.deepPurple,
-                                    ),//icon of text field
-                                    labelText: "Enter Date",//label text of field
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                    ),),
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  );
+                                }).toList(),
+                                // Step 5.
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue!;
+                                  });
+                                },
 
-                                  readOnly: true,  //set it true, so that user will not able to edit text
-                                  onTap: () async {
-                                    DateTime? pickedDate = await showDatePicker(
-                                        context: context, initialDate: DateTime.now(),
-                                        firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                                        lastDate: DateTime(2101)
-                                    );
+                              ),
 
-                                    if(pickedDate != null ){
-                                      print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                                      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                                      print(formattedDate); //formatted date output using intl package =>  2021-03-16
-                                      //you can implement different kind of Date Format here according to your requirement
 
-                                      setState(() {
-                                        dateinput.text = formattedDate; //set output date to TextField value.
-                                      });
-                                    }else{
-                                      print("Date is not selected");
-                                    }
-                                  },
+                            )
+                        ),
 
-                                ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 20.0, left : 2.0, right: 2.0, bottom: 28.0),
+                          child: TextFormField(
+                            controller: dateinput, //editing controller of this TextField
+                            decoration: const InputDecoration(
+
+                              prefixIcon: Icon(
+                                Icons.calendar_today,
+                                color: Colors.deepPurple,
+                              ),//icon of text field
+                              labelText: "Mettez la date",//label text of field
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                                borderSide: BorderSide(color: Colors.deepPurple, width: 5.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.deepPurple, width: 1),
+                              ),
                             ),
 
-                          DropdownButtonExample(),
+                            readOnly: true,  //set it true, so that user will not able to edit text
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                  context: context, initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                                  lastDate: DateTime(2101)
+                              );
 
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                            child: Row(
-                              children: [
+                              if(pickedDate != null ){
+                                print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                                String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                                //you can implement different kind of Date Format here according to your requirement
 
-                                ElevatedButton(
+                                setState(() {
+                                  dateinput.text = formattedDate; //set output date to TextField value.
+                                });
+                              }else{
+                                print("Date is not selected");
+                              }
+                            },
 
-                                  style: OutlinedButton.styleFrom(
-                                      backgroundColor: Colors.purple ,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                      )
-                                  ),
-                                  onPressed: (){},
-                                  child: const Text(
-                                    'CREER BROUILLON',
-                                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 20, //<-- SEE HERE
-                                ),
-                                ElevatedButton(
-                                    style: OutlinedButton.styleFrom(
-                                        backgroundColor: Colors.purple,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15),
-                                        )
+                          ),
+                        ),
+                        DecoratedBox(
+                            decoration: BoxDecoration(
+                                color:Colors.purple.shade50, //background color of dropdown button
+                                border: Border.all(color: Colors.deepPurple, width:1), //border of dropdown button
+                                borderRadius: BorderRadius.circular(10), //border raiuds of dropdown button
+                                boxShadow: <BoxShadow>[ //apply shadow on Dropdown button
+                                  BoxShadow(
+                                      color: Color.fromRGBO(0, 0, 0, 0.57), //shadow for button
+                                      blurRadius: 5) //blur radius of shadow
+                                ]
+                            ),
+
+                            child:Padding(
+                              padding: EdgeInsets.only(left:30, right:30),
+                              child:
+                              // Step 2.
+                              DropdownButton<String>(
+                                // Step 3.
+                                value: dropdownValue,
+
+                                // Step 4.
+                                items: <String>['Cheque', 'Espece', 'Virement', 'Autre',]
+                                    .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(fontSize: 20),
                                     ),
-                                    onPressed: (){},
-                                    child: const Text(
-                                      "ANNULER",
-                                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                                    )
-                                )
-                              ],
+                                  );
+                                }).toList(),
+                                // Step 5.
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue!;
+                                  });
+                                },
+
+                              ),
+
+
+                            )
+                        ),
+                        const SizedBox(
+                          height: 25, //<-- SEE HERE
+                        ),
+                        TextField(
+                          controller: textarea,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 4,
+                          decoration: InputDecoration(
+                            hintText: "Note privée",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                              borderSide: BorderSide(color: Colors.deepPurple, width: 5.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.deepPurple, width: 1),
+                            ),
+                            filled: false,
+                            prefixIcon: Icon(
+                              Icons.account_circle,
+                              color: Colors.deepPurple,
                             ),
                           ),
 
-                        ],
-                    )
-                ),
-              ),
+                        ),
+
+
+
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                          child: Row(
+                            children: [
+
+                              ElevatedButton(
+
+                                style: OutlinedButton.styleFrom(
+                                    backgroundColor: Colors.purple.shade900 ,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                    )
+                                ),
+                                onPressed: (){
+                                  var _reference = RefController.text;
+                                  var _datesaisie = dateinput.text;
+                                },
+                                child: const Text(
+                                  'CREER BROUILLON',
+                                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20, //<-- SEE HERE
+                              ),
+                              ElevatedButton(
+                                  style: OutlinedButton.styleFrom(
+                                      backgroundColor: Colors.purple.shade900,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      )
+                                  ),
+                                  onPressed: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => CommandePage()),//à modifier
+                                    );
+                                  },
+                                  child: const Text(
+                                    "ANNULER",
+                                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    ))
+            ),
+          ),
         ),
-        ),
-        debugShowCheckedModeBanner: false,
-    );
-  }
-}
-class DropdownButtonExample extends StatefulWidget {
-  const DropdownButtonExample({super.key});
-
-  @override
-  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
-}
-
-class _DropdownButtonExampleState extends State<DropdownButtonExample> {
-  String dropdownValue = list.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
       ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          dropdownValue = value!;
-        });
-      },
-      items: list.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
+
+
+
 
 
 
