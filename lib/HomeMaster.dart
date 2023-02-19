@@ -1,25 +1,26 @@
+import 'package:dolibarr/DashboardMaster.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'GridDashboard.dart';
 
-class HomeProduct extends StatefulWidget {
-  const HomeProduct({super.key});
+class HomeMaster extends StatefulWidget {
+  const HomeMaster({super.key});
 
   @override
   HomeState createState() => HomeState();
 }
 
-class HomeState extends State<HomeProduct> {
+class HomeState extends State<HomeMaster> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
           const SizedBox(
-            height: 80,
+            height: 45,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -27,7 +28,7 @@ class HomeState extends State<HomeProduct> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Produits",
+                      "Acceuil :)",
                       style: GoogleFonts.openSans(
                           textStyle: const TextStyle(
                               color: Color(0xff453658),
@@ -38,7 +39,7 @@ class HomeState extends State<HomeProduct> {
                       height: 4,
                     ),
                     Text(
-                      "Espace Produits",
+                      "Bienvenue !",
                       style: GoogleFonts.openSans(
                           textStyle: const TextStyle(
                               color: Color.fromARGB(228, 33, 149, 243),
@@ -47,22 +48,13 @@ class HomeState extends State<HomeProduct> {
                     ),
                   ],
                 ),
-                IconButton(
-                  iconSize: 30,
-                  alignment: Alignment.topCenter,
-                  icon: Image.asset(
-                    "assets/message.png",
-                    width: 800,
-                  ),
-                  onPressed: () {},
-                )
               ],
             ),
           ),
           const SizedBox(
             height: 20,
           ),
-          GridDashboard()
+          DashboardMaster()
         ],
       ),
     );
