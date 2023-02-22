@@ -53,7 +53,12 @@ class HomeCommande extends StatelessWidget {
         ),
         actions: [
           IconButton(icon: Icon(Icons.add_circle),
-            onPressed: () {},
+            onPressed: () {
+    Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateCommand()),
+          );
+            },
           )
         ],
       ),
@@ -98,7 +103,7 @@ class _UsersListState extends State<UsersList> {
           return UserListWidget(userList: commandes);
         } else {
           return const Center(
-            child: Text('Erreur lors de la récupération des commandes.'),
+            child: Text('Désolée : Erreur lors de la récupération des commandes.'),
           );
         }
       },
