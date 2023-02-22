@@ -14,7 +14,7 @@ class OrderIcon extends StatelessWidget {
   final double size;
   final Color color;
 
-  const OrderIcon({Key? key, this.size = 20.0, this.color = Colors.deepPurple})
+  const OrderIcon({Key? key, this.size = 20.0, this.color = Colors.purple})
       : super(key: key);
 
   @override
